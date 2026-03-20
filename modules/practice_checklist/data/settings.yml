@@ -1,19 +1,19 @@
-#Se pueden configurar en el panel de administracion
-
 - model: core.setting
   ext_id: practice_checklist_setting_auto_close
   fields:
     key: practice_checklist.auto_close_done_items
     value_type: bool
-    value_bool: false
-    label: "Cerrar checklist automáticamente cuando todos los ítems estén hechos"
-    group: practice_checklist
+    value: "false"
+    description: "Cerrar checklist automáticamente cuando todos los ítems estén hechos"
+    module: practice_checklist
+    category: practice_checklist
 
 - model: core.setting
   ext_id: practice_checklist_setting_default_public
   fields:
     key: practice_checklist.default_is_public
     value_type: bool
-    value_bool: false
-    label: "Las nuevas checklists son públicas por defecto"
-    group: practice_checklist
+    value: "false"
+    description: "Las nuevas checklists son públicas por defecto"
+    module: practice_checklist
+    category: practice_checklist

@@ -58,16 +58,32 @@ class PracticeChecklistItemService(BaseService):
     from ..models import PracticeChecklistItem
 
     @exposed_action("write", groups=["practice_checklist_group_manager", "core_group_superadmin"])
-    def set_done(self, id: int, done: bool = True, note: str | None = None) -> dict:
-        item = self.repo.session.get(PracticeChecklistItem, int(id))
-        if item is None:
-            raise HTTPException(404, "Checklist item not found")
-        item.is_done = bool(done)
-        item.done_at = dt.datetime.now(dt.timezone.utc) if done else None
-        if note:
-            base = (item.note or "").strip()
-            item.note = f"{base}\n\n[Estado] {note}".strip()
-        self.repo.session.add(item)
+    def set_done(
+        self,
+        id: int | None = None,
+        ids: list[int] | None = None,
+        done: bool = True,
+        note: str | None = None,
+    ) -> dict | list:
+        target_ids = ids if ids else ([id] if id is not None else [])
+        if not target_ids:
+            raise HTTPException(400, "Se requiere id o ids")
+
+        results = []
+        for item_id in target_ids:
+            item = self.repo.session.get(PracticeChecklistItem, int(item_id))
+            if item is None:
+                raise HTTPException(404, f"Checklist item {item_id} not found")
+            item.is_done = bool(done)
+            item.done_at = dt.datetime.now(dt.timezone.utc) if done else None
+            if note:
+                base = (item.note or "").strip()
+                item.note = f"{base}\n\n[Estado] {note}".strip()
+            self.repo.session.add(item)
+            results.append(item)
+
         self.repo.session.commit()
-        self.repo.session.refresh(item)
-        return serialize(item)
+        for item in results:
+            self.repo.session.refresh(item)
+
+        return serialize(results[0]) if len(results) == 1 else [serialize(i) for i in results]
