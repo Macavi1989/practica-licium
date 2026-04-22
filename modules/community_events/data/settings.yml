@@ -1,0 +1,39 @@
+- model: core.setting
+  ext_id: ce_setting_allow_waitlist
+  fields:
+    key: "community_events.allow_waitlist"
+    value: "true"
+    value_type: bool
+    description: "Permitir lista de espera cuando el evento está lleno"
+    module: community_events
+    category: community_events
+
+- model: core.setting
+  ext_id: ce_setting_default_capacity
+  fields:
+    key: "community_events.default_capacity"
+    value: "100"
+    value_type: int
+    description: "Capacidad por defecto para nuevos eventos"
+    module: community_events
+    category: community_events
+
+- model: core.setting
+  ext_id: ce_setting_auto_confirm
+  fields:
+    key: "community_events.auto_confirm"
+    value: "false"
+    value_type: bool
+    description: "Confirmar inscripciones automáticamente al registrarse"
+    module: community_events
+    category: community_events
+
+- model: core.setting
+  ext_id: ce_setting_reminder_hours
+  fields:
+    key: "community_events.reminder_hours_before"
+    value: "24"
+    value_type: int
+    description: "Horas antes del evento para enviar recordatorio"
+    module: community_events
+    category: community_events

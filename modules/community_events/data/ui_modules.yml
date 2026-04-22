@@ -1,0 +1,8 @@
+- model: ui.uimodule
+  ext_id: community_events_ui_module
+  fields:
+    slug: community_events
+    name: Community Events
+    description: "Manejo especializado de eventos, agendas y suscripciones públicas"
+    icon: mdi-calendar-star
+    active: true
